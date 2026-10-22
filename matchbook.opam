@@ -1,0 +1,14 @@
+opam-version: "2.0"
+synopsis: "A limit order book matching engine, tested against a reference model"
+maintainer: "Aaryan Pallath"
+authors: "Aaryan Pallath"
+license: "MIT"
+homepage: "https://github.com/aaryanpallath/matchbook"
+depends: [
+  "ocaml" {>= "5.1"}
+  "dune" {>= "3.0"}
+  "ppx_expect" {with-test}
+  "qcheck-core" {with-test}
+  "mtime"
+]
+build: ["dune" "build" "-p" name "-j" jobs]

@@ -1,0 +1,16 @@
+name: CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ocaml/setup-ocaml@93303b622b2522e4411e295f9e77411a24912ac7 # v3.9.0
+        with:
+          ocaml-compiler: "5.3"
+      - run: opam install . --deps-only --with-test -y
+      - run: opam exec -- dune build
+      - run: opam exec -- dune test   # expect tests + 4,000 random order streams against the reference model
+      - run: opam exec -- dune exec --release bin/bench.exe -- 200000
